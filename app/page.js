@@ -1,12 +1,12 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 
 // ─── COURSE DATA ─────────────────────────────────────────────────────────────
 const MILESTONES = [
   {
     id: 'm0', phase: 0, title: 'Orientation & AI Mindset',
-    color: '#06b6d4', bg: 'rgba(6,182,212,0.12)', icon: '🧭',
+    color: '#06b6d4', glow: 'rgba(6,182,212,0.35)', icon: '🧭',
     modules: [
       {
         id: 'mod-0', num: '0', title: 'Welcome & Tool Setup', time: '~3 days',
@@ -45,7 +45,7 @@ const MILESTONES = [
   },
   {
     id: 'm1', phase: 1, title: 'Web Foundation — HTML, CSS & GitHub',
-    color: '#38bdf8', bg: 'rgba(56,189,248,0.10)', icon: '🌐',
+    color: '#38bdf8', glow: 'rgba(56,189,248,0.35)', icon: '🌐',
     modules: [
       {
         id: 'mod-1', num: '1', title: 'Frontend Basics: HTML & CSS', time: '~1 week',
@@ -144,7 +144,7 @@ const MILESTONES = [
   },
   {
     id: 'm2', phase: 2, title: 'JavaScript Foundations',
-    color: '#f59e0b', bg: 'rgba(245,158,11,0.10)', icon: '⚡',
+    color: '#f59e0b', glow: 'rgba(245,158,11,0.35)', icon: '⚡',
     modules: [
       {
         id: 'mod-7', num: '7', title: 'Introduction to JavaScript', time: '~1 week',
@@ -233,7 +233,7 @@ const MILESTONES = [
   },
   {
     id: 'm3', phase: 3, title: 'Empowering JS with ES6+',
-    color: '#a78bfa', bg: 'rgba(167,139,250,0.10)', icon: '✨',
+    color: '#a78bfa', glow: 'rgba(167,139,250,0.35)', icon: '✨',
     modules: [
       {
         id: 'mod-16', num: '16', title: 'ES6 Fundamentals', time: '~1 week',
@@ -279,7 +279,7 @@ const MILESTONES = [
   },
   {
     id: 'm4', phase: 4, title: 'TypeScript — Life Saver of JS',
-    color: '#34d399', bg: 'rgba(52,211,153,0.10)', icon: '🔷',
+    color: '#34d399', glow: 'rgba(52,211,153,0.35)', icon: '🔷',
     modules: [
       {
         id: 'mod-21', num: '21', title: 'TypeScript Fundamentals', time: '~1.5 weeks',
@@ -324,7 +324,7 @@ const MILESTONES = [
   },
   {
     id: 'm5', phase: 5, title: 'Building Interactive UIs with React',
-    color: '#60a5fa', bg: 'rgba(96,165,250,0.10)', icon: '⚛️',
+    color: '#60a5fa', glow: 'rgba(96,165,250,0.35)', icon: '⚛️',
     modules: [
       {
         id: 'mod-25', num: '25', title: 'React Core — Components, JSX, Props & Rendering', time: '~1 week',
@@ -359,7 +359,6 @@ const MILESTONES = [
           { label: 'React Docs — useState', url: 'https://react.dev/reference/react/useState', type: 'docs' },
           { label: 'React Docs — useEffect', url: 'https://react.dev/reference/react/useEffect', type: 'docs' },
           { label: 'React Hooks Explained — Web Dev Simplified', url: 'https://www.youtube.com/watch?v=qJB9xKc1wjo', type: 'youtube' },
-          { label: 'Vite Official Docs', url: 'https://vitejs.dev/guide/', type: 'docs' },
         ],
         project: null,
       },
@@ -409,7 +408,7 @@ const MILESTONES = [
   },
   {
     id: 'm6', phase: 6, title: 'Next.js — Pages, Routing & Beyond',
-    color: '#f87171', bg: 'rgba(248,113,113,0.10)', icon: '▲',
+    color: '#f87171', glow: 'rgba(248,113,113,0.35)', icon: '▲',
     modules: [
       {
         id: 'mod-31', num: '31', title: 'Next.js Foundation & Routing', time: '~1 week',
@@ -454,7 +453,7 @@ const MILESTONES = [
   },
   {
     id: 'm7', phase: 7, title: 'Authentication with Next.js',
-    color: '#e879f9', bg: 'rgba(232,121,249,0.10)', icon: '🔐',
+    color: '#e879f9', glow: 'rgba(232,121,249,0.35)', icon: '🔐',
     modules: [
       {
         id: 'mod-35', num: '35', title: 'Auth with NextAuth.js (Auth.js v5)', time: '~1.5 weeks',
@@ -516,7 +515,7 @@ const MILESTONES = [
   },
   {
     id: 'm8', phase: 8, title: 'Backend APIs & Database with MongoDB',
-    color: '#2dd4bf', bg: 'rgba(45,212,191,0.10)', icon: '🗄️',
+    color: '#2dd4bf', glow: 'rgba(45,212,191,0.35)', icon: '🗄️',
     modules: [
       {
         id: 'mod-40', num: '40', title: 'Node.js & Express — First API', time: '~1 week',
@@ -594,7 +593,7 @@ const MILESTONES = [
   },
   {
     id: 'm9', phase: 9, title: 'Full Stack Project 1 — AI First',
-    color: '#c084fc', bg: 'rgba(192,132,252,0.10)', icon: '🚀',
+    color: '#c084fc', glow: 'rgba(192,132,252,0.35)', icon: '🚀',
     modules: [
       {
         id: 'mod-47', num: '47', title: 'Requirement Analysis & PRD Planning', time: '~1 week',
@@ -656,7 +655,7 @@ const MILESTONES = [
   },
   {
     id: 'm10', phase: 10, title: 'Full Stack Project 2 — Modular + AI',
-    color: '#fb923c', bg: 'rgba(251,146,60,0.10)', icon: '🏗️',
+    color: '#fb923c', glow: 'rgba(251,146,60,0.35)', icon: '🏗️',
     modules: [
       {
         id: 'mod-53-54', num: '53-54', title: 'Planning, Modular Architecture & Setup', time: '~1.5 weeks',
@@ -722,7 +721,7 @@ const MILESTONES = [
   },
   {
     id: 'm11', phase: 11, title: 'AI-Assisted Coding Mastery',
-    color: '#4ade80', bg: 'rgba(74,222,128,0.10)', icon: '🤖',
+    color: '#4ade80', glow: 'rgba(74,222,128,0.35)', icon: '🤖',
     modules: [
       {
         id: 'mod-61', num: '61', title: 'AI Coding Foundations & Mindset', time: '~1 week',
@@ -838,32 +837,21 @@ const MILESTONES = [
   },
 ];
 
-const TYPE_COLORS = {
-  youtube: { bg: 'rgba(239,68,68,0.15)', text: '#f87171', label: 'YT' },
-  docs:    { bg: 'rgba(59,130,246,0.15)', text: '#60a5fa', label: 'DOC' },
-  site:    { bg: 'rgba(16,185,129,0.15)', text: '#34d399', label: 'SITE' },
-  tool:    { bg: 'rgba(245,158,11,0.15)', text: '#fbbf24', label: 'TOOL' },
+const TYPE_META = {
+  youtube: { bg: 'rgba(239,68,68,0.18)', text: '#f87171', label: 'YT' },
+  docs:    { bg: 'rgba(59,130,246,0.18)', text: '#60a5fa', label: 'DOC' },
+  site:    { bg: 'rgba(16,185,129,0.18)', text: '#34d399', label: 'SITE' },
+  tool:    { bg: 'rgba(245,158,11,0.18)', text: '#fbbf24', label: 'TOOL' },
 };
 
 function getAllTopicIds() {
   const ids = [];
-  MILESTONES.forEach(m => m.modules.forEach(mod => {
-    mod.topics.forEach((_, ti) => ids.push(`${mod.id}_t${ti}`));
-  }));
+  MILESTONES.forEach(m => m.modules.forEach(mod =>
+    mod.topics.forEach((_, ti) => ids.push(`${mod.id}_t${ti}`))
+  ));
   return ids;
 }
 const ALL_TOPIC_IDS = getAllTopicIds();
-
-const themes = {
-  dark: {
-    bg: '#080c18', surface: '#0e1525', card: '#121d35', raised: '#172240',
-    border: '#1c2e52', borderHi: '#253d6e', txt: '#e2eaf8', txtSub: '#7a97c8', txtMut: '#3d5280',
-  },
-  light: {
-    bg: '#f4f6fb', surface: '#ffffff', card: '#ffffff', raised: '#f0f3fa',
-    border: '#dde4f0', borderHi: '#b8c8e8', txt: '#0e1a35', txtSub: '#3a5080', txtMut: '#8fa0c0',
-  },
-};
 
 // ─── API HELPERS ──────────────────────────────────────────────────────────────
 async function apiAuth(action, username, password) {
@@ -874,12 +862,10 @@ async function apiAuth(action, username, password) {
   });
   return res.json();
 }
-
 async function apiLoadProgress(username) {
   const res = await fetch(`/api/progress?username=${encodeURIComponent(username)}`);
   return res.json();
 }
-
 async function apiSaveProgress(username, checked, theme) {
   await fetch('/api/progress', {
     method: 'POST',
@@ -888,10 +874,84 @@ async function apiSaveProgress(username, checked, theme) {
   });
 }
 
+// ─── STAR FIELD CANVAS ───────────────────────────────────────────────────────
+function StarField() {
+  const canvasRef = useRef(null);
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let animId;
+    let W = window.innerWidth, H = window.innerHeight;
+    canvas.width = W; canvas.height = H;
+
+    const stars = Array.from({ length: 160 }, () => ({
+      x: Math.random() * W, y: Math.random() * H,
+      r: Math.random() * 1.4 + 0.2,
+      o: Math.random() * 0.7 + 0.1,
+      speed: Math.random() * 0.25 + 0.05,
+      twinkle: Math.random() * Math.PI * 2,
+    }));
+
+    const nebula = [
+      { x: W * 0.15, y: H * 0.25, r: 320, c: 'rgba(139,92,246,' },
+      { x: W * 0.85, y: H * 0.6,  r: 280, c: 'rgba(6,182,212,' },
+      { x: W * 0.5,  y: H * 0.8,  r: 200, c: 'rgba(192,132,252,' },
+    ];
+
+    let t = 0;
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      ctx.fillStyle = '#04060f';
+      ctx.fillRect(0, 0, W, H);
+
+      nebula.forEach(n => {
+        const pulse = 0.03 + 0.01 * Math.sin(t * 0.008 + n.x);
+        const g = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r);
+        g.addColorStop(0, n.c + pulse + ')');
+        g.addColorStop(1, n.c + '0)');
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      stars.forEach(s => {
+        s.twinkle += 0.018;
+        const alpha = s.o * (0.6 + 0.4 * Math.sin(s.twinkle));
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+        ctx.fill();
+        s.y -= s.speed;
+        if (s.y < -2) { s.y = H + 2; s.x = Math.random() * W; }
+      });
+
+      t++;
+      animId = requestAnimationFrame(draw);
+    }
+    draw();
+
+    const onResize = () => {
+      W = window.innerWidth; H = window.innerHeight;
+      canvas.width = W; canvas.height = H;
+    };
+    window.addEventListener('resize', onResize);
+    return () => { cancelAnimationFrame(animId); window.removeEventListener('resize', onResize); };
+  }, []);
+  return <canvas ref={canvasRef} style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none' }} />;
+}
+
+// ─── GLASS STYLES ─────────────────────────────────────────────────────────────
+const glass = (opacity = 0.07, blur = 16, border = 'rgba(255,255,255,0.08)') => ({
+  background: `rgba(255,255,255,${opacity})`,
+  backdropFilter: `blur(${blur}px)`,
+  WebkitBackdropFilter: `blur(${blur}px)`,
+  border: `1px solid ${border}`,
+});
+
 // ─── MAIN APP ─────────────────────────────────────────────────────────────────
 export default function App() {
-  const [themeKey, setThemeKey] = useState('dark');
-  const theme = themes[themeKey];
   const [view, setView] = useState('auth');
   const [authMode, setAuthMode] = useState('login');
   const [username, setUsername] = useState('');
@@ -903,32 +963,23 @@ export default function App() {
   const [openModules, setOpenModules] = useState(new Set());
   const [toast, setToast] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  // Restore session from localStorage
   useEffect(() => {
+    setMounted(true);
     const savedUser = localStorage.getItem('roadmap_user');
-    const savedTheme = localStorage.getItem('roadmap_theme');
-    if (savedTheme) setThemeKey(savedTheme);
     if (savedUser) {
       const user = JSON.parse(savedUser);
       setCurrentUser(user.username);
       apiLoadProgress(user.username).then(data => {
         setChecked(data.checked || {});
-        if (data.theme) setThemeKey(data.theme);
         setView('roadmap');
       });
     }
   }, []);
 
-  const toggleTheme = async () => {
-    const next = themeKey === 'dark' ? 'light' : 'dark';
-    setThemeKey(next);
-    localStorage.setItem('roadmap_theme', next);
-    if (currentUser) apiSaveProgress(currentUser, checked, next);
-  };
-
-  const showToast = (msg) => {
-    setToast(msg);
+  const showToast = (msg, type = 'success') => {
+    setToast({ msg, type });
     setTimeout(() => setToast(null), 3000);
   };
 
@@ -955,44 +1006,36 @@ export default function App() {
     localStorage.setItem('roadmap_user', JSON.stringify({ username: data.username }));
     setCurrentUser(data.username);
     setChecked(progress.checked || {});
-    if (progress.theme) setThemeKey(progress.theme);
     setView('roadmap');
     showToast(`Welcome back, ${data.username}! 👋`);
   };
 
   const handleLogout = () => {
     localStorage.removeItem('roadmap_user');
-    setCurrentUser(null);
-    setChecked({});
-    setView('auth');
-    setAuthMode('login');
-    setUsername('');
-    setPassword('');
-    setAuthError('');
+    setCurrentUser(null); setChecked({});
+    setView('auth'); setAuthMode('login');
+    setUsername(''); setPassword(''); setAuthError('');
   };
 
   const toggleTopic = useCallback(async (topicId) => {
     setChecked(prev => {
       const next = { ...prev };
-      if (next[topicId]) delete next[topicId];
-      else next[topicId] = true;
-      if (currentUser) apiSaveProgress(currentUser, next, themeKey);
+      if (next[topicId]) delete next[topicId]; else next[topicId] = true;
+      if (currentUser) apiSaveProgress(currentUser, next, 'dark');
       return next;
     });
-  }, [currentUser, themeKey]);
+  }, [currentUser]);
 
   const moduleProgress = (mod) => {
     const total = mod.topics.length;
     const done = mod.topics.filter((_, i) => checked[`${mod.id}_t${i}`]).length;
     return { done, total, pct: total ? Math.round((done / total) * 100) : 0 };
   };
-
   const milestoneProgress = (ms) => {
     let done = 0, total = 0;
     ms.modules.forEach(mod => { const p = moduleProgress(mod); done += p.done; total += p.total; });
     return { done, total, pct: total ? Math.round((done / total) * 100) : 0 };
   };
-
   const overall = (() => {
     const done = ALL_TOPIC_IDS.filter(id => checked[id]).length;
     const total = ALL_TOPIC_IDS.length;
@@ -1002,232 +1045,294 @@ export default function App() {
   const toggleMs = (id) => setOpenMilestones(prev => { const s = new Set(prev); s.has(id) ? s.delete(id) : s.add(id); return s; });
   const toggleMod = (id) => setOpenModules(prev => { const s = new Set(prev); s.has(id) ? s.delete(id) : s.add(id); return s; });
 
-  const S = {
-    root: { minHeight: '100vh', background: theme.bg, color: theme.txt, fontFamily: "'Inter', -apple-system, sans-serif", transition: 'background 0.3s, color 0.3s' },
-    authWrap: { minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem', background: theme.bg },
-    authCard: { width: '100%', maxWidth: 440, background: theme.surface, border: `1px solid ${theme.border}`, borderRadius: 20, padding: '2.5rem 2rem', boxShadow: themeKey === 'dark' ? '0 0 60px rgba(59,130,246,0.08)' : '0 8px 40px rgba(14,26,53,0.08)' },
-    inputLabel: { display: 'block', fontSize: '0.78rem', fontWeight: 600, color: theme.txtSub, marginBottom: '0.35rem', letterSpacing: '0.04em', textTransform: 'uppercase' },
-    input: { width: '100%', padding: '0.75rem 1rem', background: theme.raised, border: `1.5px solid ${theme.border}`, borderRadius: 10, color: theme.txt, fontSize: '0.95rem', outline: 'none', marginBottom: '1rem', boxSizing: 'border-box' },
-    btn: { width: '100%', padding: '0.85rem', background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)', border: 'none', borderRadius: 10, color: '#fff', fontWeight: 700, fontSize: '0.95rem', cursor: 'pointer', marginBottom: '1rem' },
-    header: { position: 'sticky', top: 0, zIndex: 50, background: themeKey === 'dark' ? 'rgba(8,12,24,0.92)' : 'rgba(255,255,255,0.92)', backdropFilter: 'blur(20px)', borderBottom: `1px solid ${theme.border}`, padding: '0 1.5rem' },
-    headerInner: { maxWidth: 1100, margin: '0 auto', display: 'flex', alignItems: 'center', gap: '1rem', height: 56 },
-    main: { maxWidth: 1100, margin: '0 auto', padding: '1.5rem' },
-  };
+  if (!mounted) return null;
 
-  // ─── AUTH VIEW ────────────────────────────────────────────────────────────
+  // ── AUTH ────────────────────────────────────────────────────────────────────
   if (view === 'auth') {
     return (
-      <div style={S.authWrap}>
-        <div style={S.authCard}>
-          <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
-            <span style={{ fontSize: '2.2rem' }}>🗺️</span>
-            <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '1.6rem', fontWeight: 800, marginTop: '0.5rem', color: theme.txt }}>
-              {authMode === 'login' ? 'Welcome back' : 'Create account'}
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem', position: 'relative', overflow: 'hidden', background: '#04060f' }}>
+        <StarField />
+        <div style={{ position: 'relative', zIndex: 1, width: '100%', maxWidth: 420 }}>
+          {/* Logo */}
+          <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 64, height: 64, borderRadius: 18, background: 'linear-gradient(135deg, rgba(6,182,212,0.3), rgba(139,92,246,0.3))', border: '1px solid rgba(6,182,212,0.4)', marginBottom: '1rem', fontSize: '1.8rem' }}>🗺️</div>
+            <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '1.7rem', fontWeight: 800, letterSpacing: '-0.03em', background: 'linear-gradient(135deg, #06b6d4, #a78bfa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+              {authMode === 'login' ? 'Welcome back' : 'Join the journey'}
             </div>
-            <div style={{ fontSize: '0.85rem', color: theme.txtSub, marginTop: '0.3rem' }}>
-              {authMode === 'login' ? 'Sign in to continue your journey' : 'Progress saves automatically to the cloud'}
+            <div style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.4)', marginTop: '0.3rem' }}>
+              {authMode === 'login' ? 'Sign in to continue your roadmap' : 'Your progress syncs across all devices'}
             </div>
           </div>
-          {authError && (
-            <div style={{ background: 'rgba(244,63,94,0.12)', border: '1px solid rgba(244,63,94,0.3)', borderRadius: 8, padding: '0.65rem 1rem', fontSize: '0.83rem', color: '#f87171', marginBottom: '1rem' }}>
-              {authError}
+
+          {/* Card */}
+          <div style={{ ...glass(0.06, 20, 'rgba(255,255,255,0.1)'), borderRadius: 24, padding: '2rem', boxShadow: '0 0 60px rgba(139,92,246,0.15), 0 0 120px rgba(6,182,212,0.08)' }}>
+            {authError && (
+              <div style={{ background: 'rgba(244,63,94,0.15)', border: '1px solid rgba(244,63,94,0.35)', borderRadius: 10, padding: '0.7rem 1rem', fontSize: '0.83rem', color: '#f87171', marginBottom: '1.25rem' }}>
+                ⚠ {authError}
+              </div>
+            )}
+
+            <div style={{ marginBottom: '1rem' }}>
+              <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, color: 'rgba(255,255,255,0.4)', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '0.4rem' }}>Username</label>
+              <input
+                value={username}
+                onChange={e => { setUsername(e.target.value); setAuthError(''); }}
+                onKeyDown={e => e.key === 'Enter' && (authMode === 'login' ? handleLogin() : handleRegister())}
+                placeholder="e.g. sayem_dev"
+                style={{ width: '100%', padding: '0.8rem 1rem', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 10, color: '#fff', fontSize: '0.95rem', outline: 'none', boxSizing: 'border-box', fontFamily: "'Space Grotesk', sans-serif" }}
+              />
             </div>
-          )}
-          <label style={S.inputLabel}>Username</label>
-          <input style={S.input} placeholder="e.g. sayem_dev" value={username} onChange={e => { setUsername(e.target.value); setAuthError(''); }} onKeyDown={e => e.key === 'Enter' && (authMode === 'login' ? handleLogin() : handleRegister())} />
-          <label style={S.inputLabel}>Password</label>
-          <input style={S.input} type="password" placeholder="••••••••" value={password} onChange={e => { setPassword(e.target.value); setAuthError(''); }} onKeyDown={e => e.key === 'Enter' && (authMode === 'login' ? handleLogin() : handleRegister())} />
-          <button style={{ ...S.btn, opacity: loading ? 0.7 : 1 }} onClick={authMode === 'login' ? handleLogin : handleRegister} disabled={loading}>
-            {loading ? 'Please wait…' : authMode === 'login' ? 'Sign in' : 'Create account'}
-          </button>
-          <div style={{ textAlign: 'center', fontSize: '0.85rem', color: theme.txtSub }}>
-            {authMode === 'login' ? (<>No account? <span style={{ color: '#60a5fa', cursor: 'pointer', fontWeight: 600 }} onClick={() => { setAuthMode('register'); setAuthError(''); }}>Register free</span></>) : (<>Already have one? <span style={{ color: '#60a5fa', cursor: 'pointer', fontWeight: 600 }} onClick={() => { setAuthMode('login'); setAuthError(''); }}>Sign in</span></>)}
+            <div style={{ marginBottom: '1.5rem' }}>
+              <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, color: 'rgba(255,255,255,0.4)', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '0.4rem' }}>Password</label>
+              <input
+                type="password"
+                value={password}
+                onChange={e => { setPassword(e.target.value); setAuthError(''); }}
+                onKeyDown={e => e.key === 'Enter' && (authMode === 'login' ? handleLogin() : handleRegister())}
+                placeholder="••••••••"
+                style={{ width: '100%', padding: '0.8rem 1rem', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 10, color: '#fff', fontSize: '0.95rem', outline: 'none', boxSizing: 'border-box', fontFamily: "'Space Grotesk', sans-serif" }}
+              />
+            </div>
+
+            <button
+              onClick={authMode === 'login' ? handleLogin : handleRegister}
+              disabled={loading}
+              style={{ width: '100%', padding: '0.9rem', background: loading ? 'rgba(139,92,246,0.4)' : 'linear-gradient(135deg, #06b6d4, #8b5cf6)', border: 'none', borderRadius: 12, color: '#fff', fontWeight: 700, fontSize: '1rem', cursor: loading ? 'not-allowed' : 'pointer', fontFamily: "'Space Grotesk', sans-serif", letterSpacing: '-0.01em', boxShadow: loading ? 'none' : '0 0 30px rgba(139,92,246,0.35)', marginBottom: '1.25rem' }}
+            >
+              {loading ? 'Please wait…' : authMode === 'login' ? 'Sign in →' : 'Create account →'}
+            </button>
+
+            <div style={{ textAlign: 'center', fontSize: '0.85rem', color: 'rgba(255,255,255,0.35)' }}>
+              {authMode === 'login' ? (<>No account?{' '}<span style={{ color: '#06b6d4', cursor: 'pointer', fontWeight: 600 }} onClick={() => { setAuthMode('register'); setAuthError(''); }}>Register free</span></>) : (<>Already have one?{' '}<span style={{ color: '#06b6d4', cursor: 'pointer', fontWeight: 600 }} onClick={() => { setAuthMode('login'); setAuthError(''); }}>Sign in</span></>)}
+            </div>
           </div>
-          <div style={{ marginTop: '2rem', paddingTop: '1.5rem', borderTop: `1px solid ${theme.border}`, textAlign: 'center' }}>
-            <div style={{ fontSize: '0.7rem', color: theme.txtMut, marginBottom: '0.5rem' }}>WHAT YOU GET</div>
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
-              {['11 Milestones', 'Progress saved', 'Dark & Light', '100% Free'].map(f => (
-                <span key={f} style={{ fontSize: '0.75rem', color: theme.txtSub, background: theme.raised, border: `1px solid ${theme.border}`, padding: '0.2rem 0.6rem', borderRadius: 99 }}>✦ {f}</span>
-              ))}
-            </div>
+
+          {/* Badges */}
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', marginTop: '1.5rem', flexWrap: 'wrap' }}>
+            {['11 Milestones', '60+ Modules', 'Progress Sync', '100% Free'].map(b => (
+              <span key={b} style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.3)', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)', padding: '0.25rem 0.7rem', borderRadius: 99 }}>✦ {b}</span>
+            ))}
           </div>
         </div>
       </div>
     );
   }
 
-  // ─── ROADMAP VIEW ─────────────────────────────────────────────────────────
+  // ── ROADMAP ─────────────────────────────────────────────────────────────────
   return (
-    <div style={S.root}>
-      <header style={S.header}>
-        <div style={S.headerInner}>
-          <span style={{ fontFamily: 'monospace', fontSize: '0.82rem', color: '#06b6d4', fontWeight: 600 }}>// fullstack-roadmap</span>
+    <div style={{ minHeight: '100vh', background: '#04060f', color: '#e2eaf8', fontFamily: "'Space Grotesk', sans-serif", position: 'relative' }}>
+      <StarField />
+
+      {/* HEADER */}
+      <header style={{ position: 'sticky', top: 0, zIndex: 50, ...glass(0.06, 24, 'rgba(255,255,255,0.07)'), borderTop: 'none', borderLeft: 'none', borderRight: 'none' }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 1.5rem', display: 'flex', alignItems: 'center', gap: '1rem', height: 58 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+            <span style={{ fontSize: '1.2rem' }}>🗺️</span>
+            <span style={{ fontWeight: 800, fontSize: '0.9rem', background: 'linear-gradient(135deg, #06b6d4, #a78bfa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>FullStack Roadmap</span>
+          </div>
           <div style={{ flex: 1 }} />
-          <span style={{ fontSize: '0.8rem', color: theme.txtSub }}>👤 <strong style={{ color: theme.txt }}>{currentUser}</strong></span>
-          <button onClick={toggleTheme} style={{ background: theme.raised, border: `1px solid ${theme.border}`, borderRadius: 8, padding: '0.35rem 0.7rem', cursor: 'pointer', color: theme.txt, fontSize: '0.85rem' }}>
-            {themeKey === 'dark' ? '☀️ Light' : '🌙 Dark'}
-          </button>
-          <button onClick={handleLogout} style={{ background: 'transparent', border: `1px solid ${theme.border}`, borderRadius: 8, padding: '0.35rem 0.8rem', cursor: 'pointer', color: theme.txtSub, fontSize: '0.8rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 99, padding: '0.3rem 0.8rem' }}>
+            <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)' }}>👤</span>
+            <span style={{ fontSize: '0.82rem', fontWeight: 600, color: 'rgba(255,255,255,0.85)' }}>{currentUser}</span>
+          </div>
+          <button onClick={handleLogout} style={{ ...glass(0.05, 10, 'rgba(255,255,255,0.08)'), borderRadius: 8, padding: '0.35rem 0.9rem', cursor: 'pointer', color: 'rgba(255,255,255,0.45)', fontSize: '0.78rem', fontWeight: 600 }}>
             Sign out
           </button>
         </div>
       </header>
 
-      <div style={{ background: themeKey === 'dark' ? 'radial-gradient(ellipse 70% 50% at 50% 0%, rgba(59,130,246,0.1) 0%, transparent 70%)' : 'none', padding: '2.5rem 1.5rem 1.5rem', textAlign: 'center' }}>
-        <div style={{ display: 'inline-block', fontSize: '0.72rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#06b6d4', background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.25)', padding: '0.3rem 1rem', borderRadius: 99, marginBottom: '1rem' }}>Free Mirror of Programming Hero Batch 14</div>
-        <h1 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 'clamp(1.6rem,4vw,2.6rem)', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.15, marginBottom: '0.7rem', color: theme.txt }}>
-          AI-Driven Full Stack Web<br />
-          <span style={{ background: 'linear-gradient(135deg, #06b6d4, #8b5cf6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Engineering Roadmap</span>
-        </h1>
-        <p style={{ color: theme.txtSub, fontSize: '0.95rem', maxWidth: 560, margin: '0 auto' }}>Your personal, self-paced roadmap. Check off topics as you learn. Progress saves to the cloud automatically.</p>
-      </div>
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        {/* HERO */}
+        <div style={{ textAlign: 'center', padding: '4rem 1.5rem 2.5rem' }}>
+          <div style={{ display: 'inline-block', fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#06b6d4', background: 'rgba(6,182,212,0.1)', border: '1px solid rgba(6,182,212,0.25)', padding: '0.35rem 1.1rem', borderRadius: 99, marginBottom: '1.25rem' }}>
+            Free Mirror — Programming Hero Batch 14
+          </div>
+          <h1 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 'clamp(2rem, 5vw, 3.2rem)', fontWeight: 800, letterSpacing: '-0.04em', lineHeight: 1.1, marginBottom: '1rem' }}>
+            AI-Driven Full Stack<br />
+            <span style={{ background: 'linear-gradient(135deg, #06b6d4 0%, #a78bfa 50%, #e879f9 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+              Web Engineering
+            </span>
+          </h1>
+          <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.95rem', maxWidth: 520, margin: '0 auto' }}>
+            Your personal self-paced roadmap. Check topics as you learn — progress syncs to the cloud.
+          </p>
+        </div>
 
-      <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 1.5rem 1.5rem' }}>
-        <div style={{ background: theme.surface, border: `1px solid ${theme.border}`, borderRadius: 16, padding: '1.25rem 1.5rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-            <div>
-              <span style={{ fontWeight: 700, fontSize: '1rem', color: theme.txt }}>Overall Progress</span>
-              <span style={{ marginLeft: '0.75rem', fontSize: '0.8rem', color: theme.txtSub }}>{overall.done} of {overall.total} topics completed</span>
+        {/* OVERALL PROGRESS */}
+        <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 1.5rem 2rem' }}>
+          <div style={{ ...glass(0.07, 20, 'rgba(255,255,255,0.1)'), borderRadius: 20, padding: '1.5rem 1.75rem', boxShadow: '0 0 40px rgba(6,182,212,0.08)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.9rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+              <div>
+                <span style={{ fontWeight: 700, fontSize: '1rem' }}>Overall Progress</span>
+                <span style={{ marginLeft: '0.75rem', fontSize: '0.8rem', color: 'rgba(255,255,255,0.35)' }}>{overall.done} of {overall.total} topics</span>
+              </div>
+              <span style={{ fontWeight: 800, fontSize: '1.8rem', background: 'linear-gradient(135deg, #06b6d4, #a78bfa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{overall.pct}%</span>
             </div>
-            <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '1.6rem', fontWeight: 800, background: 'linear-gradient(135deg,#06b6d4,#8b5cf6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{overall.pct}%</div>
-          </div>
-          <div style={{ height: 10, background: theme.raised, borderRadius: 99, overflow: 'hidden', border: `1px solid ${theme.border}` }}>
-            <div style={{ height: '100%', width: `${overall.pct}%`, background: 'linear-gradient(90deg, #06b6d4, #3b82f6, #8b5cf6)', borderRadius: 99, transition: 'width 0.5s ease' }} />
-          </div>
-          <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1rem', flexWrap: 'wrap' }}>
-            {MILESTONES.map(ms => {
-              const p = milestoneProgress(ms);
-              return (
-                <button key={ms.id} onClick={() => { toggleMs(ms.id); setTimeout(() => { const el = document.getElementById(ms.id); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 50); }}
-                  style={{ background: p.pct === 100 ? `${ms.color}22` : theme.raised, border: `1.5px solid ${p.pct === 100 ? ms.color : theme.border}`, borderRadius: 8, padding: '0.25rem 0.65rem', cursor: 'pointer', color: p.pct === 100 ? ms.color : theme.txtSub, fontSize: '0.75rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.3rem' }}
-                  title={`${ms.title} — ${p.pct}%`}>
-                  {ms.icon} M{ms.phase} <span style={{ color: theme.txtMut, fontWeight: 400 }}>{p.pct}%</span>
-                </button>
-              );
-            })}
+            {/* Master progress bar */}
+            <div style={{ height: 8, background: 'rgba(255,255,255,0.06)', borderRadius: 99, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.06)', marginBottom: '1.25rem' }}>
+              <div style={{ height: '100%', width: `${overall.pct}%`, background: 'linear-gradient(90deg, #06b6d4, #8b5cf6, #e879f9)', borderRadius: 99, transition: 'width 0.6s ease', boxShadow: '0 0 12px rgba(139,92,246,0.6)' }} />
+            </div>
+            {/* Phase pills */}
+            <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+              {MILESTONES.map(ms => {
+                const p = milestoneProgress(ms);
+                const done = p.pct === 100;
+                return (
+                  <button key={ms.id}
+                    onClick={() => { toggleMs(ms.id); setTimeout(() => { document.getElementById(ms.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 60); }}
+                    style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', padding: '0.25rem 0.65rem', borderRadius: 8, border: `1px solid ${done ? ms.color + '55' : 'rgba(255,255,255,0.08)'}`, background: done ? ms.color + '18' : 'rgba(255,255,255,0.04)', cursor: 'pointer', fontSize: '0.72rem', fontWeight: 600, color: done ? ms.color : 'rgba(255,255,255,0.35)', transition: 'all 0.2s' }}
+                    title={`${ms.title} — ${p.pct}%`}>
+                    {ms.icon} M{ms.phase} <span style={{ opacity: 0.6 }}>{p.pct}%</span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
-      </div>
 
-      <main style={S.main}>
-        {MILESTONES.map(ms => {
-          const msOpen = openMilestones.has(ms.id);
-          const msProg = milestoneProgress(ms);
-          return (
-            <div key={ms.id} id={ms.id} style={{ marginBottom: '0.85rem', border: `1px solid ${msOpen ? ms.color + '55' : theme.border}`, borderRadius: 16, overflow: 'hidden', background: theme.surface, transition: 'border-color 0.3s' }}>
-              <div onClick={() => toggleMs(ms.id)} style={{ padding: '1.1rem 1.4rem', display: 'flex', alignItems: 'center', gap: '1rem', cursor: 'pointer', background: msOpen ? ms.bg : 'transparent', transition: 'background 0.3s' }}>
-                <div style={{ width: 42, height: 42, borderRadius: 12, background: ms.bg, border: `2px solid ${ms.color}44`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.3rem', flexShrink: 0 }}>{ms.icon}</div>
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
-                    <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: '1rem', color: theme.txt }}>{ms.title}</span>
-                    <span style={{ fontSize: '0.7rem', padding: '0.15rem 0.5rem', background: ms.bg, color: ms.color, borderRadius: 6, border: `1px solid ${ms.color}44`, fontWeight: 600 }}>Phase {ms.phase}</span>
-                    {msProg.pct === 100 && <span style={{ fontSize: '0.7rem', padding: '0.15rem 0.5rem', background: 'rgba(16,185,129,0.15)', color: '#34d399', borderRadius: 6, fontWeight: 700 }}>✓ Complete</span>}
+        {/* MILESTONES */}
+        <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 1.5rem 4rem' }}>
+          {MILESTONES.map(ms => {
+            const msOpen = openMilestones.has(ms.id);
+            const msProg = milestoneProgress(ms);
+            return (
+              <div key={ms.id} id={ms.id} style={{ marginBottom: '0.75rem', borderRadius: 20, overflow: 'hidden', ...glass(0.05, 16, msOpen ? ms.color + '33' : 'rgba(255,255,255,0.07)'), boxShadow: msOpen ? `0 0 40px ${ms.glow}` : 'none', transition: 'box-shadow 0.4s, border-color 0.3s' }}>
+
+                {/* Milestone Header */}
+                <div onClick={() => toggleMs(ms.id)} style={{ padding: '1.1rem 1.4rem', display: 'flex', alignItems: 'center', gap: '1rem', cursor: 'pointer', background: msOpen ? `linear-gradient(135deg, ${ms.color}10, transparent)` : 'transparent', transition: 'background 0.3s' }}>
+                  <div style={{ width: 44, height: 44, borderRadius: 13, background: ms.color + '18', border: `1.5px solid ${ms.color}44`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.3rem', flexShrink: 0, boxShadow: `0 0 16px ${ms.glow}` }}>
+                    {ms.icon}
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginTop: '0.4rem' }}>
-                    <div style={{ flex: 1, height: 5, background: theme.raised, borderRadius: 99, overflow: 'hidden', maxWidth: 200 }}>
-                      <div style={{ height: '100%', width: `${msProg.pct}%`, background: ms.color, borderRadius: 99, transition: 'width 0.4s' }} />
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '0.4rem' }}>
+                      <span style={{ fontWeight: 700, fontSize: '1rem', color: '#e2eaf8' }}>{ms.title}</span>
+                      <span style={{ fontSize: '0.65rem', fontWeight: 700, padding: '0.15rem 0.55rem', background: ms.color + '18', color: ms.color, borderRadius: 6, border: `1px solid ${ms.color}33`, letterSpacing: '0.06em' }}>PHASE {ms.phase}</span>
+                      {msProg.pct === 100 && <span style={{ fontSize: '0.65rem', fontWeight: 700, padding: '0.15rem 0.55rem', background: 'rgba(16,185,129,0.15)', color: '#34d399', borderRadius: 6, border: '1px solid rgba(16,185,129,0.3)' }}>✓ COMPLETE</span>}
                     </div>
-                    <span style={{ fontSize: '0.75rem', color: theme.txtSub }}>{msProg.done}/{msProg.total} topics · {msProg.pct}%</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                      <div style={{ flex: 1, maxWidth: 180, height: 4, background: 'rgba(255,255,255,0.06)', borderRadius: 99, overflow: 'hidden' }}>
+                        <div style={{ height: '100%', width: `${msProg.pct}%`, background: ms.color, borderRadius: 99, transition: 'width 0.4s', boxShadow: `0 0 8px ${ms.glow}` }} />
+                      </div>
+                      <span style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.3)' }}>{msProg.done}/{msProg.total} · {msProg.pct}%</span>
+                    </div>
                   </div>
+                  <div style={{ color: 'rgba(255,255,255,0.25)', fontSize: '0.9rem', transition: 'transform 0.3s', transform: msOpen ? 'rotate(180deg)' : 'none', flexShrink: 0 }}>▼</div>
                 </div>
-                <div style={{ color: theme.txtMut, fontSize: '1rem', transition: 'transform 0.3s', transform: msOpen ? 'rotate(180deg)' : 'none', flexShrink: 0 }}>▼</div>
-              </div>
 
-              {msOpen && (
-                <div style={{ padding: '0 1rem 1rem' }}>
-                  {ms.modules.map(mod => {
-                    const modOpen = openModules.has(mod.id);
-                    const mp = moduleProgress(mod);
-                    return (
-                      <div key={mod.id} style={{ marginTop: '0.75rem', background: theme.card, border: `1px solid ${modOpen ? ms.color + '44' : theme.border}`, borderRadius: 12, overflow: 'hidden', transition: 'border-color 0.2s' }}>
-                        <div onClick={() => toggleMod(mod.id)} style={{ padding: '0.85rem 1.1rem', display: 'flex', alignItems: 'center', gap: '0.8rem', cursor: 'pointer' }}
-                          onMouseEnter={e => e.currentTarget.style.background = theme.raised}
-                          onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
-                          <span style={{ fontFamily: 'monospace', fontSize: '0.65rem', color: theme.txtMut, minWidth: 36, flexShrink: 0 }}>MOD {mod.num}</span>
-                          <div style={{ flex: 1, minWidth: 0 }}>
-                            <span style={{ fontWeight: 600, fontSize: '0.9rem', color: mp.pct === 100 ? ms.color : theme.txt }}>{mod.title}</span>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginTop: '0.3rem' }}>
-                              <div style={{ width: 80, height: 3, background: theme.raised, borderRadius: 99, overflow: 'hidden' }}>
-                                <div style={{ height: '100%', width: `${mp.pct}%`, background: ms.color, borderRadius: 99, transition: 'width 0.3s' }} />
+                {/* Modules */}
+                {msOpen && (
+                  <div style={{ padding: '0 0.85rem 0.85rem' }}>
+                    {ms.modules.map(mod => {
+                      const modOpen = openModules.has(mod.id);
+                      const mp = moduleProgress(mod);
+                      return (
+                        <div key={mod.id} style={{ marginTop: '0.6rem', borderRadius: 14, overflow: 'hidden', ...glass(0.04, 12, modOpen ? ms.color + '30' : 'rgba(255,255,255,0.06)'), transition: 'border-color 0.2s' }}>
+
+                          {/* Module Header */}
+                          <div onClick={() => toggleMod(mod.id)} style={{ padding: '0.85rem 1.1rem', display: 'flex', alignItems: 'center', gap: '0.8rem', cursor: 'pointer', transition: 'background 0.2s' }}
+                            onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.04)'}
+                            onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
+                            <span style={{ fontFamily: 'monospace', fontSize: '0.62rem', color: 'rgba(255,255,255,0.2)', minWidth: 34, flexShrink: 0 }}>MOD {mod.num}</span>
+                            <div style={{ flex: 1, minWidth: 0 }}>
+                              <div style={{ fontWeight: 600, fontSize: '0.88rem', color: mp.pct === 100 ? ms.color : '#e2eaf8', marginBottom: '0.3rem' }}>{mod.title}</div>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                <div style={{ width: 70, height: 3, background: 'rgba(255,255,255,0.06)', borderRadius: 99, overflow: 'hidden' }}>
+                                  <div style={{ height: '100%', width: `${mp.pct}%`, background: ms.color, borderRadius: 99, boxShadow: `0 0 6px ${ms.glow}` }} />
+                                </div>
+                                <span style={{ fontSize: '0.67rem', color: 'rgba(255,255,255,0.25)' }}>{mp.pct}%</span>
                               </div>
-                              <span style={{ fontSize: '0.7rem', color: theme.txtMut }}>{mp.pct}%</span>
                             </div>
+                            <span style={{ fontSize: '0.72rem', color: '#f59e0b', flexShrink: 0, background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.2)', padding: '0.15rem 0.5rem', borderRadius: 6 }}>{mod.time}</span>
+                            <span style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.8rem', transition: 'transform 0.2s', transform: modOpen ? 'rotate(180deg)' : 'none', flexShrink: 0 }}>▾</span>
                           </div>
-                          <span style={{ fontSize: '0.75rem', color: '#f59e0b', flexShrink: 0 }}>{mod.time}</span>
-                          <span style={{ color: theme.txtMut, fontSize: '0.85rem', transition: 'transform 0.2s', transform: modOpen ? 'rotate(180deg)' : 'none', flexShrink: 0 }}>▾</span>
-                        </div>
 
-                        {modOpen && (
-                          <div style={{ padding: '0.75rem 1.1rem 1.1rem', borderTop: `1px solid ${theme.border}` }}>
-                            <div style={{ marginBottom: '1rem' }}>
-                              <div style={{ fontSize: '0.7rem', color: theme.txtMut, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>Topics</div>
-                              {mod.topics.map((topic, ti) => {
-                                const tid = `${mod.id}_t${ti}`;
-                                const isChecked = !!checked[tid];
-                                return (
-                                  <div key={tid} onClick={() => toggleTopic(tid)}
-                                    style={{ display: 'flex', alignItems: 'flex-start', gap: '0.65rem', padding: '0.45rem 0.5rem', borderRadius: 7, cursor: 'pointer', marginBottom: '0.1rem' }}
-                                    onMouseEnter={e => e.currentTarget.style.background = theme.raised}
-                                    onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
-                                    <div style={{ width: 17, height: 17, borderRadius: 4, border: `2px solid ${isChecked ? ms.color : theme.borderHi}`, background: isChecked ? ms.color : 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 2, transition: 'all 0.15s' }}>
-                                      {isChecked && <span style={{ color: '#fff', fontSize: '0.7rem', fontWeight: 900 }}>✓</span>}
-                                    </div>
-                                    <span style={{ fontSize: '0.85rem', color: isChecked ? theme.txtMut : theme.txtSub, textDecoration: isChecked ? 'line-through' : 'none', lineHeight: 1.5 }}>{topic}</span>
-                                  </div>
-                                );
-                              })}
-                            </div>
-                            <div style={{ marginBottom: mod.project ? '1rem' : 0 }}>
-                              <div style={{ fontSize: '0.7rem', color: theme.txtMut, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>Free Resources</div>
-                              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
-                                {mod.resources.map((r, ri) => {
-                                  const tc = TYPE_COLORS[r.type] || TYPE_COLORS.site;
+                          {/* Module Body */}
+                          {modOpen && (
+                            <div style={{ padding: '0.5rem 1.1rem 1.1rem', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+
+                              {/* Topics */}
+                              <div style={{ marginBottom: '1.1rem' }}>
+                                <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '0.6rem', marginTop: '0.6rem' }}>Topics</div>
+                                {mod.topics.map((topic, ti) => {
+                                  const tid = `${mod.id}_t${ti}`;
+                                  const isChecked = !!checked[tid];
                                   return (
-                                    <a key={ri} href={r.url} target="_blank" rel="noopener noreferrer"
-                                      style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', padding: '0.5rem 0.75rem', background: theme.raised, border: `1px solid ${theme.border}`, borderRadius: 8, textDecoration: 'none', color: theme.txtSub, fontSize: '0.82rem' }}
-                                      onMouseEnter={e => { e.currentTarget.style.borderColor = ms.color + '66'; e.currentTarget.style.color = theme.txt; }}
-                                      onMouseLeave={e => { e.currentTarget.style.borderColor = theme.border; e.currentTarget.style.color = theme.txtSub; }}>
-                                      <span style={{ fontSize: '0.75rem', fontWeight: 700, padding: '0.1rem 0.4rem', borderRadius: 4, background: tc.bg, color: tc.text, flexShrink: 0, fontFamily: 'monospace' }}>{tc.label}</span>
-                                      <span style={{ flex: 1 }}>{r.label}</span>
-                                      <span style={{ color: theme.txtMut, fontSize: '0.8rem' }}>↗</span>
-                                    </a>
+                                    <div key={tid} onClick={() => toggleTopic(tid)}
+                                      style={{ display: 'flex', alignItems: 'flex-start', gap: '0.7rem', padding: '0.45rem 0.5rem', borderRadius: 8, cursor: 'pointer', transition: 'background 0.15s', marginBottom: '0.05rem' }}
+                                      onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.04)'}
+                                      onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
+                                      <div style={{ width: 17, height: 17, borderRadius: 5, border: `2px solid ${isChecked ? ms.color : 'rgba(255,255,255,0.15)'}`, background: isChecked ? ms.color : 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 2, transition: 'all 0.15s', boxShadow: isChecked ? `0 0 10px ${ms.glow}` : 'none' }}>
+                                        {isChecked && <span style={{ color: '#000', fontSize: '0.65rem', fontWeight: 900 }}>✓</span>}
+                                      </div>
+                                      <span style={{ fontSize: '0.84rem', color: isChecked ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.6)', textDecoration: isChecked ? 'line-through' : 'none', lineHeight: 1.5, transition: 'all 0.15s' }}>
+                                        {topic}
+                                      </span>
+                                    </div>
                                   );
                                 })}
                               </div>
-                            </div>
-                            {mod.project && (
-                              <div style={{ background: `linear-gradient(135deg, ${ms.color}12, ${ms.color}06)`, border: `1px solid ${ms.color}33`, borderRadius: 10, padding: '0.85rem 1rem' }}>
-                                <div style={{ fontSize: '0.65rem', fontWeight: 700, color: ms.color, textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '0.35rem' }}>🏗 Project</div>
-                                <div style={{ fontWeight: 700, fontSize: '0.88rem', color: theme.txt, marginBottom: '0.25rem' }}>{mod.project.title}</div>
-                                <div style={{ fontSize: '0.82rem', color: theme.txtSub, lineHeight: 1.5 }}>{mod.project.desc}</div>
-                              </div>
-                            )}
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-          );
-        })}
 
-        <div style={{ marginTop: '3rem', borderTop: `1px solid ${theme.border}`, paddingTop: '2.5rem', textAlign: 'center' }}>
-          <div style={{ fontSize: '0.75rem', color: theme.txtMut, textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '0.5rem' }}>Roadmap by</div>
-          <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '1.25rem', fontWeight: 800, background: 'linear-gradient(135deg, #06b6d4, #3b82f6, #8b5cf6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: '0.4rem' }}>Sayem Al Amin</div>
-          <p style={{ fontSize: '0.78rem', color: theme.txtMut, maxWidth: 480, margin: '0 auto 1.5rem' }}>A free, complete alternative to the Programming Hero Batch 14 course — using 100% free resources. Your pace, your progress.</p>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
-            {['11 Milestones', '60+ Modules', '30+ Projects', '100% Free', 'Self-Paced'].map(t => (
-              <span key={t} style={{ fontSize: '0.75rem', color: theme.txtSub, background: theme.raised, border: `1px solid ${theme.border}`, padding: '0.25rem 0.7rem', borderRadius: 99 }}>{t}</span>
-            ))}
+                              {/* Resources */}
+                              <div style={{ marginBottom: mod.project ? '1rem' : 0 }}>
+                                <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '0.5rem' }}>Free Resources</div>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+                                  {mod.resources.map((r, ri) => {
+                                    const tc = TYPE_META[r.type] || TYPE_META.site;
+                                    return (
+                                      <a key={ri} href={r.url} target="_blank" rel="noopener noreferrer"
+                                        style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', padding: '0.5rem 0.8rem', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 9, textDecoration: 'none', color: 'rgba(255,255,255,0.5)', fontSize: '0.81rem', transition: 'all 0.2s' }}
+                                        onMouseEnter={e => { e.currentTarget.style.borderColor = ms.color + '55'; e.currentTarget.style.color = 'rgba(255,255,255,0.85)'; e.currentTarget.style.background = ms.color + '10'; }}
+                                        onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'; e.currentTarget.style.color = 'rgba(255,255,255,0.5)'; e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; }}>
+                                        <span style={{ fontSize: '0.65rem', fontWeight: 700, padding: '0.1rem 0.4rem', borderRadius: 4, background: tc.bg, color: tc.text, flexShrink: 0, fontFamily: 'monospace', letterSpacing: '0.05em' }}>{tc.label}</span>
+                                        <span style={{ flex: 1 }}>{r.label}</span>
+                                        <span style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.75rem' }}>↗</span>
+                                      </a>
+                                    );
+                                  })}
+                                </div>
+                              </div>
+
+                              {/* Project */}
+                              {mod.project && (
+                                <div style={{ background: `linear-gradient(135deg, ${ms.color}12, ${ms.color}05)`, border: `1px solid ${ms.color}30`, borderRadius: 12, padding: '1rem 1.1rem', boxShadow: `0 0 20px ${ms.glow}` }}>
+                                  <div style={{ fontSize: '0.62rem', fontWeight: 700, color: ms.color, textTransform: 'uppercase', letterSpacing: '0.14em', marginBottom: '0.4rem' }}>🏗 Project</div>
+                                  <div style={{ fontWeight: 700, fontSize: '0.88rem', color: '#e2eaf8', marginBottom: '0.3rem' }}>{mod.project.title}</div>
+                                  <div style={{ fontSize: '0.81rem', color: 'rgba(255,255,255,0.45)', lineHeight: 1.55 }}>{mod.project.desc}</div>
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+
+          {/* FOOTER */}
+          <div style={{ marginTop: '4rem', textAlign: 'center', ...glass(0.04, 16, 'rgba(255,255,255,0.07)'), borderRadius: 20, padding: '2.5rem 2rem' }}>
+            <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.25)', letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '0.6rem' }}>Crafted by</div>
+            <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '1.5rem', fontWeight: 800, letterSpacing: '-0.03em', background: 'linear-gradient(135deg, #06b6d4, #a78bfa, #e879f9)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: '0.5rem' }}>
+              Sayem Al Amin
+            </div>
+            <p style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.25)', maxWidth: 440, margin: '0 auto 1.5rem' }}>
+              A free, complete alternative to Programming Hero Batch 14. Every module, every project, every resource — 100% free. Your pace, your progress.
+            </p>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+              {['11 Milestones', '60+ Modules', '30+ Projects', '100% Free', 'Self-Paced'].map(t => (
+                <span key={t} style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.3)', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', padding: '0.25rem 0.7rem', borderRadius: 99 }}>{t}</span>
+              ))}
+            </div>
           </div>
         </div>
-      </main>
+      </div>
 
+      {/* TOAST */}
       {toast && (
-        <div style={{ position: 'fixed', bottom: '1.5rem', left: '50%', transform: 'translateX(-50%)', background: themeKey === 'dark' ? '#1a2540' : '#fff', border: `1px solid ${theme.borderHi}`, borderRadius: 10, padding: '0.75rem 1.5rem', fontSize: '0.88rem', color: theme.txt, boxShadow: '0 8px 32px rgba(0,0,0,0.3)', zIndex: 200, whiteSpace: 'nowrap' }}>
-          {toast}
+        <div style={{ position: 'fixed', bottom: '1.5rem', left: '50%', transform: 'translateX(-50%)', ...glass(0.15, 20, 'rgba(255,255,255,0.15)'), borderRadius: 12, padding: '0.8rem 1.5rem', fontSize: '0.88rem', color: '#fff', boxShadow: '0 8px 32px rgba(0,0,0,0.5), 0 0 20px rgba(139,92,246,0.3)', zIndex: 200, whiteSpace: 'nowrap', fontWeight: 600 }}>
+          {toast.msg}
         </div>
       )}
     </div>
