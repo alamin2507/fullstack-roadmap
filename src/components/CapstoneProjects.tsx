@@ -22,24 +22,22 @@ function ProjectCard({ project, idx, isExpanded, onToggle }: { project: Capstone
   const [isMiddleActive, setIsMiddleActive] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const el = cardRef.current;
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const viewportCenter = window.innerHeight / 2;
-      const cardCenter = rect.top + rect.height / 2;
-      
-      const threshold = window.innerHeight * 0.15;
-      setIsMiddleActive(Math.abs(cardCenter - viewportCenter) < threshold);
-    };
+    const el = cardRef.current;
+    if (!el) return;
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleScroll);
-    handleScroll();
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsMiddleActive(entry.isIntersecting);
+      },
+      {
+        rootMargin: "-35% 0px -35% 0px",
+        threshold: 0
+      }
+    );
 
+    observer.observe(el);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleScroll);
+      observer.disconnect();
     };
   }, []);
 
